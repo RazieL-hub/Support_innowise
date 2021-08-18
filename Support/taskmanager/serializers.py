@@ -3,7 +3,7 @@ from taskmanager.models import Ticket, Comments
 
 
 class TicketCreateSerializer(serializers.ModelSerializer):
-    comments = serializers.StringRelatedField(many=True)
+    #comments = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Ticket

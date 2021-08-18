@@ -1,5 +1,5 @@
 from django.contrib import admin
-from taskmanager.models import Ticket, TicketCategory, Comments, Subcategory
+from taskmanager.models import Ticket, TicketCategory, Subcategory, Comments
 
 
 admin.site.register(TicketCategory)
