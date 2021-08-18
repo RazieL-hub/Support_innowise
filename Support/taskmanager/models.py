@@ -28,7 +28,7 @@ class Subcategory(models.Model):
 
 class Ticket(models.Model):
     class TicketStatus(models.TextChoices):
-        new = 'new', _('NEW')
+        new = 'new', _('New')
         in_work = 'in_work', _('In_work')
         close = 'close', _('Close')
         error = 'error', _('Error')
@@ -38,12 +38,13 @@ class Ticket(models.Model):
     category = models.ForeignKey(TicketCategory, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
     ticket_status = models.CharField(max_length=80, choices=TicketStatus.choices, default='new')
+
     text = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.id
+        return f'{self.id} {self.category} {self.ticket_status} {self.date_created}'
 
     class Meta:
         verbose_name = 'ticket'
