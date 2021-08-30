@@ -13,7 +13,6 @@ class RegisterView(generics.GenericAPIView):
         serializer = self.serializer_class(data=user)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
         user_data = serializer.data
 
         return Response(user_data, status=status.HTTP_201_CREATED)
