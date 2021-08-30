@@ -33,7 +33,7 @@ class UserManager(BaseUserManager):  # Специальный класс для 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=54, unique=True, db_index=True, validators=[RegexValidator(
             regex=r'[^0-9a-zA-Z-_]',
-            message='Only use 0-9, a-Z-_',
+            message='Only use letters, numbers - and _',
             code='invalid_username',
             inverse_match=True,
         )],
