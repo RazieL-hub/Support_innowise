@@ -11,7 +11,7 @@ class CommentCreateSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class CommentListSerializer(serializers.ModelSerializer):
     """Вывод комментариев"""
     user = serializers.SlugRelatedField(slug_field='username', read_only=True)
     ticket = serializers.SlugRelatedField(slug_field='text', read_only=True)
@@ -47,7 +47,7 @@ class TicketDetailSerializer(serializers.ModelSerializer):
     subcategory = serializers.SlugRelatedField(slug_field='subcategory', read_only=True)
     author = serializers.SlugRelatedField(slug_field='username', read_only=True)
     responsible = serializers.SlugRelatedField(slug_field='username', read_only=True)
-    comments = CommentSerializer(many=True)
+    comments = CommentListSerializer(many=True)
 
     class Meta:
         model = Ticket
