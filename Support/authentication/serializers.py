@@ -4,6 +4,7 @@ from django.core import exceptions
 import django.contrib.auth.password_validation as validators
 
 
+
 class RegisterSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True)
 
@@ -12,6 +13,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ['email', 'username', 'password', 'confirm_password']
 
     def validate(self, attrs):
+        email = attrs.get('email', '')
         password = attrs.get('password', '')
         confirm_password = attrs.get('confirm_password')
 

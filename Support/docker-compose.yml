@@ -1,0 +1,47 @@
+version: '3.5'
+services:
+  web:
+    container_name: support
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    env_file:
+      - ../.env
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13.4
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=support
+    ports:
+      - 5500:5432
+
+
+  redis:
+    image: redis
+    container_name: support-redis
+
+
+  celery:
+    container_name: support-celery
+    build: .
+    command: celery -A config worker --loglevel=INFO
+    volumes:
+      - .:/code
+    env_file:
+      - ../.env
+    depends_on:
+      - postgres
+      - web
+      - redis
+volumes:
+  postgres_data:
+
