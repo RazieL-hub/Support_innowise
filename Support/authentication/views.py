@@ -1,3 +1,4 @@
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -20,6 +21,11 @@ class RegisterView(generics.GenericAPIView):
         print(dir(serializer))
         print('___________________________________')
         print(serializer.validated_data)
+        current_site = get_current_site(request).domain
+
+        email_subject = 'Verify your email'
+        email_body = f"Hi {serializer.validated_data.get('username')}. Use link for verify your email." \
+                     f" "
         send_activation_email.delay(serializer.validated_data.get('email'))
 
         return Response(user_data, status=status.HTTP_201_CREATED)
