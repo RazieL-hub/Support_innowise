@@ -13,7 +13,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ['email', 'username', 'password', 'confirm_password']
 
     def validate(self, attrs):
-        email = attrs.get('email', '')
         password = attrs.get('password', '')
         confirm_password = attrs.get('confirm_password')
 

@@ -23,6 +23,8 @@ services:
       - POSTGRES_DB=support
     ports:
       - 5500:5432
+    env_file:
+      - ../.env
 
 
   redis:
