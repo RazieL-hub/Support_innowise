@@ -1,6 +1,7 @@
 from django.db import models
 from authentication.models import User
 from django.utils.translation import gettext_lazy as _
+from ckeditor.fields import RichTextField
 
 
 class TicketCategory(models.Model):
@@ -40,6 +41,7 @@ class Ticket(models.Model):
     ticket_status = models.CharField(max_length=80, choices=TicketStatus.choices, default='new')
 
     text = models.TextField()
+
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 

@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import IsAuthenticated
 from taskmanager.models import Ticket, Comment
 from taskmanager.serializers import TicketCreateSerializer, TicketListSerializer, TicketDetailSerializer, \
     CommentCreateSerializer
@@ -29,8 +31,13 @@ class TicketCreateView(APIView):
 
 class TicketListView(APIView):
     """Вывод полного списка тикетов"""
+    # permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category', 'subcategory', 'ticket_status']
+
 
     def get(self, request):
+
         tickets = Ticket.objects.all()
         serializer = TicketListSerializer(tickets, many=True)
         return Response(serializer.data)
