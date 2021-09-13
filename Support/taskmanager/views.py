@@ -38,7 +38,6 @@ class TicketListView(APIView):
 
 
     def get(self, request):
-        print(get_current_site(request).domain)
         tickets = Ticket.objects.all()
         serializer = TicketListSerializer(tickets, many=True)
         return Response(serializer.data)
