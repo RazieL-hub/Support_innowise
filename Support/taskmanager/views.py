@@ -1,6 +1,7 @@
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from taskmanager.models import Ticket, Comment
 from taskmanager.serializers import TicketCreateSerializer, TicketListSerializer, TicketDetailSerializer, \
     CommentCreateSerializer
@@ -31,16 +32,18 @@ class TicketCreateView(APIView):
 
 class TicketListView(APIView):
     """Вывод полного списка тикетов"""
-    # permission_classes = [IsAuthenticated]
+    permission_classes = (AllowAny, )
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['category', 'subcategory', 'ticket_status']
 
 
     def get(self, request):
-
+        print(get_current_site(request).domain)
         tickets = Ticket.objects.all()
         serializer = TicketListSerializer(tickets, many=True)
         return Response(serializer.data)
+
+
 
 
 class TicketDetailView(APIView):
