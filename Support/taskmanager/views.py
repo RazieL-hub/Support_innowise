@@ -1,13 +1,9 @@
-from django.contrib.sites.shortcuts import get_current_site
-from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from taskmanager.models import Ticket, Comment
 from taskmanager.serializers import TicketCreateSerializer, TicketListSerializer, TicketDetailSerializer, \
     CommentCreateSerializer
-from rest_framework.views import APIView
 from rest_framework import generics
-from rest_framework.response import Response
 
 
 class TicketCreateView(generics.CreateAPIView):
