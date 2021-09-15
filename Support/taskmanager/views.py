@@ -1,65 +1,43 @@
-from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from taskmanager.models import Ticket, Comment
 from taskmanager.serializers import TicketCreateSerializer, TicketListSerializer, TicketDetailSerializer, \
     CommentCreateSerializer
-from rest_framework.views import APIView
 from rest_framework import generics
-from rest_framework.response import Response
 
 
-class TicketCreateView(APIView):
-    """
-    Создание тикета
-    {
-    "ticket_status": "new",
-    "text": "test tickeet",
-    "author": 2,
-    "responsible": 1,
-    "category": 3,
-    "subcategory": 2
-    }
-    """
-
-    def post(self, request):
-        ticket = TicketCreateSerializer(data=request.data)
-        if ticket.is_valid():
-            ticket.save()
-            return Response(status=201)
+class TicketCreateView(generics.CreateAPIView):
+    """Создание тикета"""
+    permission_classes = (IsAuthenticated,)
+    serializer_class = TicketCreateSerializer
+    permission_classes = (AllowAny,)
 
 
-class TicketListView(APIView):
+class TicketListView(generics.ListAPIView):
     """Вывод полного списка тикетов"""
-    # permission_classes = [IsAuthenticated]
+    serializer_class = TicketListSerializer
+    permission_classes = (AllowAny, )
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['category', 'subcategory', 'ticket_status']
 
 
-    def get(self, request):
-
+    def get_queryset(self):
         tickets = Ticket.objects.all()
-        serializer = TicketListSerializer(tickets, many=True)
-        return Response(serializer.data)
+        return tickets
 
 
-class TicketDetailView(APIView):
+
+
+class TicketDetailView(generics.RetrieveAPIView):
     """Вывод конкретного тикетов"""
 
-    def get(self, request, pk):
-        tickets = Ticket.objects.get(id=pk)
-        serializer = TicketDetailSerializer(tickets)
-        return Response(serializer.data)
+    serializer_class = TicketDetailSerializer
+    queryset = Ticket.objects.all()
 
-
-class CommentCreateView(APIView):
+class CommentCreateView(generics.CreateAPIView):
     """Добавление комментария"""
+    serializer_class = CommentCreateSerializer
 
-    def post(self, request):
-        comment = CommentCreateSerializer(data=request.data)
-        if comment.is_valid():
-            comment.save()
-            return Response(status=201)
 
 
 class Test(generics.CreateAPIView):

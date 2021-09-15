@@ -65,6 +65,9 @@ class Comment(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.user} {self.date_created} '
+
     class Meta:
         verbose_name = 'comment'
         verbose_name_plural = 'comments'

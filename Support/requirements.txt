@@ -22,7 +22,6 @@ django-templated-mail==1.1.1
 djangorestframework==3.12.4
 djangorestframework-jsonapi==4.2.1
 djangorestframework-simplejwt==4.7.2
-djoser==2.1.0
 flake8==3.9.2
 idna==3.2
 inflection==0.5.1
@@ -52,3 +51,4 @@ uritemplate==3.0.1
 urllib3==1.26.6
 vine==5.0.0
 wcwidth==0.2.5
+flower==1.0.0

@@ -1,4 +1,6 @@
 from django.core.mail import send_mail
 
-def send(user_email):
-    send_mail('TEST SUBJECT', 'TEST MESSAGE', 'sachukantonytest@gmail.com', [user_email], fail_silently=False)
+
+
+def send(email_subject, email_body, email_from, email_to):
+    send_mail(email_subject, email_body, email_from, [email_to], fail_silently=False)
