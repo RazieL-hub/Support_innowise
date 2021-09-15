@@ -8,6 +8,7 @@ from rest_framework import generics
 
 class TicketCreateView(generics.CreateAPIView):
     """Создание тикета"""
+    permission_classes = (IsAuthenticated,)
     serializer_class = TicketCreateSerializer
     permission_classes = (AllowAny,)
 
