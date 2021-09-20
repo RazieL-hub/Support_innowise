@@ -18,4 +18,4 @@ exec: ## exec web container
 exec_db: ## exec db container
 	docker exec -it ${POSTGRES_CONTAINER_NAME} bash
 load:
-	docker exec -it ${WEB_CONTAINER_NAME} ./manage.py loaddata test1
+	docker exec -it ${WEB_CONTAINER_NAME} ./manage.py loaddata fixture
