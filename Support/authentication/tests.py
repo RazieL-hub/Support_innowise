@@ -6,11 +6,8 @@ from authentication.models import User
 
 
 class UsersApiTestCase(APITestCase):
-    def setUp(self):
-        pass
-
     def test_user(self):
-        url = f"http://0.0.0.0:8000/authentication/register/"
+        url = "/authentication/register/"
         data = {
             "email": "test_staff@admin.com",
             "username": "test_staff",
@@ -26,6 +23,7 @@ class UsersApiTestCase(APITestCase):
         self.assertEqual(data['email'], response.data['email'])
         self.assertEqual(data['username'], response.data['username'])
         self.assertEqual(data['password'], response.data['password'])
+        self.assertEqual(3, len(response.data))
 
     def test_create_user(self):
         user = User.objects.create_user(email='test_user@test.com', username='test_user', password='testuser1234',
