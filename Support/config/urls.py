@@ -21,9 +21,6 @@ urlpatterns = [
 
     path('api-auth/', include('rest_framework.urls')),
 
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.jwt')),
-
     path('authentication/', include('authentication.urls')),
 
     path('api/v1/', include('taskmanager.urls')),
