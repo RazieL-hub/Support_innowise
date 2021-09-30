@@ -1,7 +1,6 @@
 from django.db import models
 from authentication.models import User
 from django.utils.translation import gettext_lazy as _
-from ckeditor.fields import RichTextField
 
 
 class TicketCategory(models.Model):
@@ -35,7 +34,7 @@ class Ticket(models.Model):
         error = 'error', _('Error')
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author')
-    responsible = models.ForeignKey(User, on_delete=models.CASCADE, related_name='responsible')
+    responsible = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='responsible')
     category = models.ForeignKey(TicketCategory, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
     ticket_status = models.CharField(max_length=80, choices=TicketStatus.choices, default='new')

@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from taskmanager.models import Ticket, Comment
-from authentication.models import User
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):
@@ -26,7 +25,7 @@ class TicketCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ticket
-        fields = '__all__'
+        exclude = ('author', 'responsible')
 
 
 class TicketListSerializer(serializers.ModelSerializer):

@@ -1,5 +1,5 @@
 from django.urls import path
-from taskmanager.views import TicketCreateView, TicketListView, TicketDetailView, CommentCreateView ,Test
+from taskmanager.views import TicketCreateView, TicketListView, TicketDetailView, CommentCreateView, Test
 
 urlpatterns = [
     path('create_ticket/', TicketCreateView.as_view(), name='create_ticket'),
