@@ -1,6 +1,6 @@
-WEB_CONTAINER_NAME=support
+WEB_CONTAINER_NAME=support-web
 WEB_SERVICE_NAME=web
-DEFAULT_DB=postgres
+DEFAULT_DB=support-postgres
 
 
 mkm: ## make migrations
