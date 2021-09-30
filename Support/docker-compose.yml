@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-nginx
+      network: host
     container_name: support-nginx
     restart: always
     ports:
