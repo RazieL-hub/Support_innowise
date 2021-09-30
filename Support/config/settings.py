@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS')
+ALLOWED_HOSTS = [os.getenv('DJANGO_ALLOWED_HOSTS'), os.getenv('DJANGO_ALLOWED_HOSTS2')]
 
 AUTH_USER_MODEL = 'authentication.User'
 
