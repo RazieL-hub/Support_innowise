@@ -1,9 +1,9 @@
 version: '3.5'
 services:
   web:
-    container_name: support
+    container_name: support-web
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
@@ -12,6 +12,24 @@ services:
       - ../.env
     depends_on:
       - postgres
+
+  nginx:
+    image: nginx:latest
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    container_name: support-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./media/:/code/media
+      - ./static/:/code/static
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - letsencrypt:/etc/letsencrypt
+    depends_on:
+      - web
 
   postgres:
     image: postgres:13.4
@@ -30,6 +48,7 @@ services:
   redis:
     image: redis
     container_name: support-redis
+    restart: always
 
 
   celery:
@@ -47,6 +66,7 @@ services:
 
   flower:
     build: .
+    container_name: support-flower
     command: celery flower -A core --port=5555 --broker=redis://redis:6379/0
     ports:
       - 5555:5555
