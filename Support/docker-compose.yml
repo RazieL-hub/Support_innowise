@@ -34,6 +34,7 @@ services:
 
 
   postgres:
+    container_name: support-postgres
     image: postgres:13.4
     volumes:
       - postgres_data:/var/lib/postgresql/data/
