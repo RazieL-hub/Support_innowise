@@ -14,7 +14,6 @@ services:
       - postgres
 
   nginx:
-    image: nginx:latest
     build:
       context: .
       dockerfile: Dockerfile-nginx
