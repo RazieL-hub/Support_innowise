@@ -21,7 +21,7 @@ services:
   web:
     container_name: support-web
     build: .
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn -b 0.0.0.0:8000 -w 5 config.wsgi"
     volumes:
       - .:/code
     ports:
@@ -30,8 +30,6 @@ services:
       - ../.env
     depends_on:
       - postgres
-
-
 
   postgres:
     container_name: support-postgres
